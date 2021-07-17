@@ -46,6 +46,6 @@ public class User extends ModeloBase {
     //Relaciones
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "paquete")
     private Paquete paquete;
 }

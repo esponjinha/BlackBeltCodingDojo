@@ -97,6 +97,59 @@ public class ControladorPaquete {
     }
 
 
+    @GetMapping("/packages/{paqueteid}/editar")
+    public String editarVista(@ModelAttribute("paquete") Paquete paquete, @PathVariable("paqueteid") Long paqueteid, HttpSession session, Model model){
+        if(session.getAttribute("idusuario") == null){
+            return "redirect:/";
+        }
+        User user = servicioUsuario.findUserById((Long) session.getAttribute("idusuario"));
+        if(user.getRol() != 1){
+            return "redirect:/";
+        }else{
+            Paquete p = servicioPaquete.findById(paqueteid);
+            model.addAttribute("p", p);
+            return "editarPackages.jsp";
+        }
+    }
+
+    @PutMapping("/packages/{paqueteid}/editar")
+    public String editando(@Valid @ModelAttribute("paquete") Paquete paquete, BindingResult result, Model model, @PathVariable("paqueteid") Long paqueteid){
+        if(result.hasErrors()){
+            return "editarPackages.jsp";
+        }else{
+            Paquete p = servicioPaquete.findById(paqueteid);
+            p.setPackageCost(paquete.getPackageCost());
+            servicioPaquete.update(p);
+            return "redirect:/packages";
+        }
+    }
+
+    @GetMapping("/packages/{paqueteid}/borrar")
+    public String borrar(@PathVariable("paqueteid") Long paqueteid, HttpSession session){
+        if(session.getAttribute("idusuario") == null){
+            return "redirect:/";
+        }
+        User user = servicioUsuario.findUserById((Long) session.getAttribute("idusuario"));
+        if(user.getRol() != 1){
+            return "redirect:/users/"+user.getId();
+        }
+        Paquete paquete = servicioPaquete.findById(paqueteid);
+        if(paquete.getUsers().size() > 0){
+            return "redirect:/";
+        } else {
+            servicioPaquete.delete(paquete.getId());
+            return "redirect:/packages";
+        }
+
+
+    }
+
+
+
+
+
+
+
 
 
 
