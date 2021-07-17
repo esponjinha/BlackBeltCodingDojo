@@ -104,7 +104,7 @@ public class ControladorPaquete {
         }
         User user = servicioUsuario.findUserById((Long) session.getAttribute("idusuario"));
         if(user.getRol() != 1){
-            return "redirect:/";
+            return "redirect:/users/" + user.getId();
         }else{
             Paquete p = servicioPaquete.findById(paqueteid);
             model.addAttribute("p", p);
@@ -115,6 +115,8 @@ public class ControladorPaquete {
     @PutMapping("/packages/{paqueteid}/editar")
     public String editando(@Valid @ModelAttribute("paquete") Paquete paquete, BindingResult result, Model model, @PathVariable("paqueteid") Long paqueteid){
         if(result.hasErrors()){
+            Paquete p = servicioPaquete.findById(paqueteid);
+            model.addAttribute("p", p);
             return "editarPackages.jsp";
         }else{
             Paquete p = servicioPaquete.findById(paqueteid);
@@ -140,8 +142,6 @@ public class ControladorPaquete {
             servicioPaquete.delete(paquete.getId());
             return "redirect:/packages";
         }
-
-
     }
 
 
