@@ -35,6 +35,7 @@ public class User extends ModeloBase{
     @Transient
     private String passwordConfirmation;
 
+    private int rol;
 
     @NotNull
     @NotBlank

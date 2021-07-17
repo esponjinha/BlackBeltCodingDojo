@@ -7,13 +7,22 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "paquetes")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class Paquete {
+public class Paquete extends ModeloBase {
 
+    @NotNull
+    @NotBlank
+    @Size(min = 5, max = 100)
     private String packageName;
+
+    @Min(0)
     private float packageCost;
     private boolean available;
 
