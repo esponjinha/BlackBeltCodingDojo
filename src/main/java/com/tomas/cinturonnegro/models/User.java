@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -35,9 +34,17 @@ public class User extends ModeloBase {
     @Transient
     private String passwordConfirmation;
 
+    private int rol;
 
     @NotNull
     @NotBlank
     @Email(message = "ingrese un email valido")
     private String email;
+
+
+
+    //Relaciones
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Paquete> paquetes;
 }
