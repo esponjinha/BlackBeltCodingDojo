@@ -13,9 +13,12 @@ import javax.validation.Valid;
 
 @Controller
 public class ControladorUsuario {
+
+    //1 = admin
+    //2 = usuario
     private final ServicioUsuario servicioUsuario;
 
-    public ControladorUsuario(ServicioUsuario servicioUsuario) {1
+    public ControladorUsuario(ServicioUsuario servicioUsuario) {
         this.servicioUsuario = servicioUsuario;
     }
 
@@ -35,7 +38,7 @@ public class ControladorUsuario {
             return "index.jsp";
         }
         if(servicioUsuario.emailExist(user.getEmail())){
-            
+
         }
     }
 }
