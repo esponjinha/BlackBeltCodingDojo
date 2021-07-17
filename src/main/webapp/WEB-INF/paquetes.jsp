@@ -21,7 +21,7 @@
             <c:forEach var="usuario" items="${usuarios}">
                 <tr>
                     <th scope="row"><c:out value="${usuario.firstName} ${usuario.lastName}"/> </th>
-
+                    <td><c:out value="${usuario.fechaPago}"/></td>
                     <td><c:out value="${usuario.paquete.packageCost}"/></td>
                     <td><c:out value="${usuario.paquete.packageName}"/></td>
                 </tr>
@@ -45,9 +45,22 @@
                 <tr>
                     <th scope="row"><c:out value="${paquete.packageName}"/> </th>
                     <td><c:out value="${paquete.packageCost}"/></td>
-                    <td><c:out value="${paquete.available}"/></td>
+                    <c:if test="${paquete.available == true}">
+                        <td>Available</td>
+                    </c:if>
+                    <c:if test="${paquete.available == false}">
+                        <td>Unavailable</td>
+                    </c:if>
                     <td><c:out value="${paquete.users.size()}"/></td>
-                    <td>activar|editar</td>
+                    <c:if test="${paquete.available && paquete.users.size() == 0}">
+                        <td><a href="/packages/${paquete.id}/desactivar">Desactivar</a> | <a href="/packages/${paquete.id}/editar">Editar</a></td>
+                    </c:if>
+                    <c:if test="${paquete.available && paquete.users.size() > 0}">
+                        <td>Desactivar | <a href="/packages/${paquete.id}/editar">Editar</a></td>
+                    </c:if>
+                    <c:if test="${paquete.available == false}">
+                        <td><a href="/packages/${paquete.id}/activar">Activar</a> | <a href="/packages/${paquete.id}/editar">Editar</a></td>
+                    </c:if>
                 </tr>
             </c:forEach>
             </tbody>

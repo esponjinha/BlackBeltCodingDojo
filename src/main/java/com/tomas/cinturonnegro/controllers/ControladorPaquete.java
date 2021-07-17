@@ -47,6 +47,10 @@ public class ControladorPaquete {
     @PostMapping("/packages")
     public String agregarPaquete(@Valid @ModelAttribute("paquete") Paquete paquete, BindingResult result, Model model){
         if(result.hasErrors()){
+            List<User> usuarios = servicioUsuario.allData();
+            List<Paquete> paquetes = servicioPaquete.allData();
+            model.addAttribute("usuarios", usuarios);
+            model.addAttribute("paquetes", paquetes);
             return "paquetes.jsp";
         }else{
             List<User> usuarios = servicioUsuario.allData();
@@ -116,12 +120,11 @@ public class ControladorPaquete {
 
     @PutMapping("/packages/{paqueteid}/editar")
     public String editando(@Valid @ModelAttribute("paquete") Paquete paquete, BindingResult result, Model model, @PathVariable("paqueteid") Long paqueteid){
+        Paquete p = servicioPaquete.findById(paqueteid);
         if(result.hasErrors()){
-            Paquete p = servicioPaquete.findById(paqueteid);
             model.addAttribute("p", p);
             return "editarPackages.jsp";
         }else{
-            Paquete p = servicioPaquete.findById(paqueteid);
             p.setPackageCost(paquete.getPackageCost());
             servicioPaquete.update(p);
             return "redirect:/packages";
@@ -129,7 +132,7 @@ public class ControladorPaquete {
     }
 
     @GetMapping("/packages/{paqueteid}/borrar")
-    public String borrar(@PathVariable("paqueteid") Long paqueteid, HttpSession session){
+    public String borrar(@ModelAttribute("paquete") Paquete paquete, @PathVariable("paqueteid") Long paqueteid, HttpSession session, Model model){
         if(session.getAttribute("idusuario") == null){
             return "redirect:/";
         }
@@ -137,30 +140,16 @@ public class ControladorPaquete {
         if(user.getRol() != 1){
             return "redirect:/users/"+user.getId();
         }
-        Paquete paquete = servicioPaquete.findById(paqueteid);
-        if(paquete.getUsers().size() > 0){
-            return "redirect:/";
+        Paquete p = servicioPaquete.findById(paqueteid);
+        if(p.getUsers().size() > 0){
+            model.addAttribute("p", p);
+            model.addAttribute("error", "No se puede eliminar porque paquete ya tiene usuarios");
+            return "editarPackages.jsp";
         } else {
             servicioPaquete.delete(paquete.getId());
             return "redirect:/packages";
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
