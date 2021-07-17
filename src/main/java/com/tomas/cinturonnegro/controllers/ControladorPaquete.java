@@ -50,6 +50,8 @@ public class ControladorPaquete {
             return "paquetes.jsp";
         }else{
             List<User> usuarios = servicioUsuario.allData();
+            Long admin = (long) 1;
+            usuarios.remove(servicioUsuario.findUserById(admin));
             List<Paquete> paquetes = servicioPaquete.allData();
             model.addAttribute("usuarios", usuarios);
             model.addAttribute("paquetes", paquetes);
