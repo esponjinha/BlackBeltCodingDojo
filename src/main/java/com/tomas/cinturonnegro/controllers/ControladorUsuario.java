@@ -16,6 +16,9 @@ import javax.validation.Valid;
 
 @Controller
 public class ControladorUsuario {
+
+    //1 = admin
+    //2 = usuario
     private final ServicioUsuario servicioUsuario;
     private final UserValidator userValidator;
 
