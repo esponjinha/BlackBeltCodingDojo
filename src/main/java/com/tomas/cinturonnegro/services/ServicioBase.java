@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public abstract class ServicicioBase<T> {
+public abstract class ServicioBase<T> {
     RepositorioBase<T> repositorioBase;
 
-    public ServicicioBase(RepositorioBase<T> repositorioBase) {
+    public ServicioBase(RepositorioBase repositorioBase) {
         this.repositorioBase = repositorioBase;
     }
 

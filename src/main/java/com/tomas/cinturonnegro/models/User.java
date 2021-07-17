@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class User extends ModeloBase{
+public class User extends ModeloBase {
     @NotNull
     @NotBlank
     @Size(min = 5, max = 45, message = "el nombre debe estar entre 5 y 45 caracteres")
