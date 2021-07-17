@@ -45,6 +45,7 @@ public class User extends ModeloBase {
 
     //Relaciones
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Paquete> paquetes;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user")
+    private Paquete paquete;
 }

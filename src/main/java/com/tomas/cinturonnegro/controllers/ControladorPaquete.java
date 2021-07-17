@@ -7,10 +7,7 @@ import com.tomas.cinturonnegro.services.ServicioUsuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -60,6 +57,53 @@ public class ControladorPaquete {
             return "redirect:/packages";
         }
     }
+
+    //////////////////////////////////////////////////////////////
+
+    @GetMapping("/packages/{paqueteid}/activar")
+    public String activarPaquete(@PathVariable("paqueteid") Long paqueteid, HttpSession session){
+        if(session.getAttribute("idusuario") == null){
+            return "redirect:/";
+        }
+        User user = servicioUsuario.findUserById((Long) session.getAttribute("idusuario"));
+        if(user.getRol() != 1){
+            return "redirect:/users/"+user.getId();
+        } else {
+            Paquete paquete = servicioPaquete.findById(paqueteid);
+            paquete.setAvailable(true);
+            servicioPaquete.update(paquete);
+            return "redirect:/packages";
+        }
+    }
+
+    @GetMapping("/packages/{paqueteid}/desactivar")
+    public String desactivarPaquete(@PathVariable("paqueteid") Long paqueteid, HttpSession session){
+        if(session.getAttribute("idusuario") == null){
+            return "redirect:/";
+        }
+        User user = servicioUsuario.findUserById((Long) session.getAttribute("idusuario"));
+        if(user.getRol() != 1){
+            return "redirect:/users/"+user.getId();
+        }
+        Paquete paquete = servicioPaquete.findById(paqueteid);
+        if(paquete.getUsers().size() > 0){
+            return "redirect:/packages";
+        }
+        else{
+            paquete.setAvailable(false);
+            servicioPaquete.update(paquete);
+            return "redirect:/packages";
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
 
