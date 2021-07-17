@@ -1,6 +1,8 @@
 package com.tomas.cinturonnegro.controllers;
 
+import com.tomas.cinturonnegro.models.Paquete;
 import com.tomas.cinturonnegro.models.User;
+import com.tomas.cinturonnegro.services.ServicioPaquete;
 import com.tomas.cinturonnegro.services.ServicioUsuario;
 import com.tomas.cinturonnegro.validator.UserValidator;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Calendar;
+import java.util.Date;
 
 @Controller
 public class ControladorUsuario {
@@ -21,10 +25,12 @@ public class ControladorUsuario {
     //2 = usuario
     private final ServicioUsuario servicioUsuario;
     private final UserValidator userValidator;
+    private final ServicioPaquete servicioPaquete;
 
-    public ControladorUsuario(ServicioUsuario servicioUsuario, UserValidator userValidator) {
+    public ControladorUsuario(ServicioUsuario servicioUsuario, UserValidator userValidator, ServicioPaquete servicioPaquete) {
         this.servicioUsuario = servicioUsuario;
         this.userValidator = userValidator;
+        this.servicioPaquete = servicioPaquete;
     }
 
     @GetMapping("/")
@@ -56,10 +62,20 @@ public class ControladorUsuario {
             if(servicioUsuario.count() > 0) {
                 user.setRol(2);
                 User usuario = servicioUsuario.registerUser(user);
+                Paquete paquete = servicioPaquete.findByName("Basico");
+                usuario.setPaquete(paquete);
+                Calendar hoy= Calendar.getInstance();
+                hoy.add(Calendar.DATE, 30);
+                Date fecha=hoy.getTime();
+                usuario.setFechaPago(fecha);
+                servicioUsuario.update(usuario);
                 session.setAttribute("idusuario", usuario.getId());
                 return "redirect:/users/" + usuario.getId();
             } else {
                 user.setRol(1);
+                Paquete paquete = new Paquete();
+                paquete.setPackageName("Basico");
+                servicioPaquete.create(paquete);
                 User usuario = servicioUsuario.registerUser(user);
                 session.setAttribute("idusuario", usuario.getId());
                 return "redirect:/packages";
@@ -90,8 +106,5 @@ public class ControladorUsuario {
         session.invalidate();
         return "redirect:/";
     }
-
-
-
 
 }

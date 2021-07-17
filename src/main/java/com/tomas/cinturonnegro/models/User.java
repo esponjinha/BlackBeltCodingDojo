@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -41,7 +42,7 @@ public class User extends ModeloBase {
     @Email(message = "ingrese un email valido")
     private String email;
 
-
+    private Date fechaPago;
 
     //Relaciones
 

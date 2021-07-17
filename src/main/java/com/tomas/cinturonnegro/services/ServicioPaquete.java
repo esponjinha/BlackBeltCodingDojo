@@ -13,4 +13,7 @@ public class ServicioPaquete extends ServicioBase<Paquete> {
         this.repositorioPaquete = repositorioBase;
     }
 
+    public Paquete findByName(String name) {
+        return repositorioPaquete.findByPackageNameContaining(name);
+    }
 }
