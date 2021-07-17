@@ -21,7 +21,7 @@
             <c:forEach var="usuario" items="${usuarios}">
                 <tr>
                     <th scope="row"><c:out value="${usuario.firstName} ${usuario.lastName}"/> </th>
-                    <td>Mark</td>
+
                     <td><c:out value="${usuario.paquete.packageCost}"/></td>
                     <td><c:out value="${usuario.paquete.packageName}"/></td>
                 </tr>
@@ -32,7 +32,7 @@
         <table class="table">
             <thead class="">
             <tr>
-                
+
                 <th scope="col">Package name</th>
                 <th scope="col">Package cost</th>
                 <th scope="col">Available</th>
@@ -41,15 +41,15 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="usuario" items="${usuarios}">
+            <c:forEach var="paquete" items="${paquetes}">
                 <tr>
-                    <th scope="row"><c:out value="${usuario.firstName} ${usuario.lastName}"/> </th>
-                    <td>Mark</td>
-                    <td><c:out value="${usuario.paquete.packageCost}"/></td>
-                    <td><c:out value="${usuario.paquete.packageName}"/></td>
+                    <th scope="row"><c:out value="${paquete.packageName}"/> </th>
+                    <td><c:out value="${paquete.packageCost}"/></td>
+                    <td><c:out value="${paquete.available}"/></td>
+                    <td><c:out value="${paquete.users.size()}"/></td>
+                    <td>activar|editar</td>
                 </tr>
             </c:forEach>
-
             </tbody>
         </table>
 
