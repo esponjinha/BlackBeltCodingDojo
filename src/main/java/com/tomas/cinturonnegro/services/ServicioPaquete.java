@@ -13,7 +13,4 @@ public class ServicioPaquete extends ServicioBase<Paquete> {
         this.repositorioPaquete = repositorioBase;
     }
 
-    public long count() {
-        return repositorioPaquete.count();
-    }
 }

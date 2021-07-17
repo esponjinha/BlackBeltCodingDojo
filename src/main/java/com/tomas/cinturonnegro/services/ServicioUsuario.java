@@ -57,4 +57,8 @@ public class ServicioUsuario extends ServicioBase<User> {
     public boolean emailExist(String email) {
         return repositorioUser.existsByEmail(email);
     }
+
+    public long count() {
+        return repositorioUser.count();
+    }
 }
