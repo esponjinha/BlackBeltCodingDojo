@@ -10,6 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "paquetes")
@@ -26,9 +27,9 @@ public class Paquete extends ModeloBase {
 
     private boolean available;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user")
-    private User user;
 
+
+    @OneToMany(mappedBy = "paquete", fetch = FetchType.LAZY)
+    private List<User> users;
 
 }
