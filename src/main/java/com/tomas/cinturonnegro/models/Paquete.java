@@ -23,6 +23,7 @@ public class Paquete extends ModeloBase {
 
     @Min(0)
     private float packageCost;
+
     private boolean available;
 
     @ManyToOne(fetch = FetchType.LAZY)
