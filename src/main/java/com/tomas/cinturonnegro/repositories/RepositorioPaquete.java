@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RepositorioPaquete extends RepositorioBase<Paquete> {
-
+    Paquete findByPackageNameContaining(String packageName);
 }

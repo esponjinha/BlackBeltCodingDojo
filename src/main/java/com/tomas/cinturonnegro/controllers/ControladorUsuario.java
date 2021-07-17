@@ -51,7 +51,6 @@ public class ControladorUsuario {
         if(servicioUsuario.emailExist(user.getEmail())){
             String error = "Email ya existe en la base de datos";
             model.addAttribute("error", error);
-            // colocar error
             return "index.jsp";
         } else {
             if(servicioUsuario.count() > 0) {
@@ -86,6 +85,11 @@ public class ControladorUsuario {
         }
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 
 
 

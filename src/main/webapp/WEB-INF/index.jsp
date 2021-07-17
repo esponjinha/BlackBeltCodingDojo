@@ -24,13 +24,18 @@
                         <form:errors path="lastName" cssClass="red"/>
                     </div>
                     <div class="col">
+                        <form:label path="email" cssClass="form-label">Email: </form:label>
+                        <form:input path="email" cssClass="form-control"/>
+                        <form:errors path="email" cssClass="red"/>
+                    </div>
+                    <div class="col">
                         <form:label path="password" cssClass="form-label">Contraseña: </form:label>
-                        <form:input path="password" cssClass="form-control"/>
-                        <form:errors path="lastName" cssClass="red"/>
+                        <form:input path="password" type="password" cssClass="form-control"/>
+                        <form:errors path="password" cssClass="red"/>
                     </div>
                     <div class="col">
                         <form:label path="passwordConfirmation" cssClass="form-label">Confirmar contraseña: </form:label>
-                        <form:input path="passwordConfirmation" cssClass="form-control"/>
+                        <form:input path="passwordConfirmation" type="password" cssClass="form-control"/>
                         <form:errors path="passwordConfirmation" cssClass="red"/>
                     </div>
                     <input type="submit" value="Registrarse" class="btn btn-warning"/>
