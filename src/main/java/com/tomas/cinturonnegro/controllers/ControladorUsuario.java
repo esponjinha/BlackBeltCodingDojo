@@ -124,10 +124,15 @@ public class ControladorUsuario {
     }
 
     @GetMapping("users/{idUser}/changeplan")
-    public String changePlan(@RequestParam("paquete")Long paquete, @PathVariable("idUser") Long idUser, Model model  ){
-        if(false){
+    public String changePlan(@RequestParam("paquete")Long paquete, @PathVariable("idUser") Long idUser, Model model, HttpSession session  ){
+        if(session.getAttribute("idusuario") == null){
             return "userid.jsp";
-        } else{
+        }
+        User user = servicioUsuario.findUserById((Long) session.getAttribute("idusuario"));
+        if(user.getRol() == 1){
+            return "redirect:/packages";
+        }
+        else{
             User u = servicioUsuario.findUserById(idUser);
             List<Paquete> paquetes = servicioPaquete.allData();
             paquetes.remove(u.getPaquete());

@@ -23,7 +23,6 @@
       <a href="/packages" class="btn btn-dark mt-3">Cancelar</a>
       <p><c:out value="${error}"/></p>
     </form:form>
-
   </div>
 </body>
 </html>
