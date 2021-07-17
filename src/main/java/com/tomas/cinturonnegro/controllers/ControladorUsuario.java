@@ -88,7 +88,7 @@ public class ControladorUsuario {
         boolean autenticado = servicioUsuario.authenticateUser(email, password);
         if(autenticado) {
             User usuario = servicioUsuario.findByEmail(email);
-            session.setAttribute("userId", usuario.getId());
+            session.setAttribute("idusuario", usuario.getId());
             if(usuario.getRol() == 1) {
                 return "redirect:/packages";
             } else {
