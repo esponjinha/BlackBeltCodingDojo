@@ -38,7 +38,7 @@
                         <form:input path="passwordConfirmation" type="password" cssClass="form-control"/>
                         <form:errors path="passwordConfirmation" cssClass="red"/>
                     </div>
-                    <input type="submit" value="Registrarse" class="btn btn-warning"/>
+                    <input type="submit" value="Registrarse" class="btn btn-dark mt-3"/>
                 </form:form>
             </div>
             <div class="col">
@@ -54,7 +54,7 @@
                         <label class="form-label">Contraseña: </label>
                         <input name="password" class="form-control"/>
                     </div>
-                    <input type="submit" value="Login" class="btn btn-warning"/>
+                    <input type="submit" value="Login" class="btn btn-dark mt-3"/>
                 </form>
             </div>
         </div>

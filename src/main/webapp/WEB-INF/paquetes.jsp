@@ -7,7 +7,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Admin dashboard</h1>
+        <a href="/logout" class="btn btn-dark">Logout</a>
+        <h1 class="mt-3">Admin dashboard</h1>
         <table class="table">
             <thead class="">
             <tr>
@@ -77,7 +78,7 @@
                 <form:input cssClass="form-control" path="packageCost"/>
                 <form:errors path="packageCost"/>
             </p>
-            <input class="btn btn-warning" type="submit" value="Register!"/>
+            <input class="btn btn-dark" type="submit" value="Register!"/>
         </form:form>
     </div>
 </body>

@@ -18,9 +18,9 @@
       <form:input path="packageCost" cssClass="form-control" value="${p.packageCost}"/>
       <form:errors path="packageCost"/>
 
-      <input type="submit" class="btn btn-dark"/>
-      <a href="/packages/${p.id}/borrar" class="btn btn-dark">Eliminar</a>
-      <a href="/packages" class="btn btn-dark">Cancelar</a>
+      <input type="submit" class="btn btn-dark mt-3"/>
+      <a href="/packages/${p.id}/borrar" class="btn btn-dark mt-3">Eliminar</a>
+      <a href="/packages" class="btn btn-dark mt-3">Cancelar</a>
       <p><c:out value="${error}"/></p>
     </form:form>
 
