@@ -52,7 +52,7 @@
                     </div>
                     <div class="col">
                         <label class="form-label">Contraseña: </label>
-                        <input name="password" class="form-control"/>
+                        <input name="password" type="password" class="form-control"/>
                     </div>
                     <input type="submit" value="Login" class="btn btn-dark mt-3"/>
                 </form>

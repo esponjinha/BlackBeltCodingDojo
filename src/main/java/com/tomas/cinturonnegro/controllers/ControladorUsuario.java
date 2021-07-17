@@ -5,18 +5,17 @@ import com.tomas.cinturonnegro.models.User;
 import com.tomas.cinturonnegro.services.ServicioPaquete;
 import com.tomas.cinturonnegro.services.ServicioUsuario;
 import com.tomas.cinturonnegro.validator.UserValidator;
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ControladorUsuario {
@@ -106,5 +105,45 @@ public class ControladorUsuario {
         session.invalidate();
         return "redirect:/";
     }
+
+    @GetMapping("users/{idUser}")
+    public String idUser(@PathVariable("idUser") Long idUser, HttpSession session,  Model model){
+        if(session.getAttribute("idusuario") == null){
+            return "redirect:/";
+        }
+        User u = servicioUsuario.findUserById(idUser);
+        if(u.getRol() != 2){
+            return "redirect:/packages";
+        }else{
+            List<Paquete> paquetes = servicioPaquete.allData();
+            paquetes.remove(u.getPaquete());
+            model.addAttribute("paquetes", paquetes);
+            model.addAttribute("u", u);
+            return "userid.jsp";
+        }
+    }
+
+    @GetMapping("users/{idUser}/changeplan")
+    public String changePlan(@RequestParam("paquete")Long paquete, @PathVariable("idUser") Long idUser, Model model  ){
+        if(false){
+            return "userid.jsp";
+        } else{
+            User u = servicioUsuario.findUserById(idUser);
+            List<Paquete> paquetes = servicioPaquete.allData();
+            paquetes.remove(u.getPaquete());
+            model.addAttribute("paquetes", paquetes);
+            model.addAttribute("u", u);
+            u.setPaquete(servicioPaquete.findById(paquete));
+            servicioUsuario.update(u);
+            return "redirect:/users/"+ idUser;
+        }
+    }
+
+
+
+
+
+
+
 
 }
