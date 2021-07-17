@@ -32,6 +32,7 @@
         <table class="table">
             <thead class="">
             <tr>
+                
                 <th scope="col">Package name</th>
                 <th scope="col">Package cost</th>
                 <th scope="col">Available</th>
